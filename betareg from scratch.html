@@ -2686,9 +2686,9 @@ vertical-align: -.125em;
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> </span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">height =</span> <span class="fu">c</span>(<span class="dv">187</span>, <span class="dv">185</span>, <span class="dv">170</span>),</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">foot =</span> <span class="fu">c</span>(<span class="fl">44.5</span>, <span class="dv">43</span>, <span class="dv">39</span>),</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">bb =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">height =</span> <span class="fu">c</span>(<span class="dv">175</span>,<span class="dv">168</span>,<span class="dv">182</span>,<span class="dv">187</span>,<span class="dv">178</span>,<span class="dv">173</span>,<span class="dv">213</span>,<span class="dv">195</span>,<span class="dv">189</span>, <span class="dv">165</span>),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">foot =</span> <span class="fu">c</span>(<span class="dv">40</span>,<span class="dv">41</span>,<span class="dv">45</span>, <span class="fl">44.5</span>,<span class="fl">40.5</span>,<span class="dv">38</span>,<span class="dv">48</span>,<span class="dv">46</span>,<span class="dv">45</span>, <span class="dv">39</span>),</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">bb =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>, <span class="dv">0</span>)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2702,7 +2702,7 @@ vertical-align: -.125em;
 </tr>
 <tr class="even">
 <td style="text-align: left;">Number of rows</td>
-<td style="text-align: left;">3</td>
+<td style="text-align: left;">10</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Number of columns</td>
@@ -2734,15 +2734,15 @@ vertical-align: -.125em;
 <table class="table table-sm table-striped">
 <colgroup>
 <col style="width: 16%">
-<col style="width: 12%">
+<col style="width: 11%">
 <col style="width: 16%">
-<col style="width: 8%">
-<col style="width: 6%">
-<col style="width: 4%">
+<col style="width: 7%">
 <col style="width: 7%">
 <col style="width: 4%">
 <col style="width: 8%">
+<col style="width: 8%">
 <col style="width: 7%">
+<col style="width: 5%">
 <col style="width: 7%">
 </colgroup>
 <thead>
@@ -2765,40 +2765,40 @@ vertical-align: -.125em;
 <td style="text-align: left;">height</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">180.67</td>
-<td style="text-align: right;">9.29</td>
-<td style="text-align: right;">170</td>
-<td style="text-align: right;">177.5</td>
-<td style="text-align: right;">185</td>
-<td style="text-align: right;">186.00</td>
-<td style="text-align: right;">187.0</td>
-<td style="text-align: left;">▃▁▁▁▇</td>
+<td style="text-align: right;">182.5</td>
+<td style="text-align: right;">14.27</td>
+<td style="text-align: right;">165</td>
+<td style="text-align: right;">173.50</td>
+<td style="text-align: right;">180.00</td>
+<td style="text-align: right;">188.5</td>
+<td style="text-align: right;">213</td>
+<td style="text-align: left;">▇▇▅▂▂</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">foot</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">42.17</td>
-<td style="text-align: right;">2.84</td>
-<td style="text-align: right;">39</td>
-<td style="text-align: right;">41.0</td>
-<td style="text-align: right;">43</td>
-<td style="text-align: right;">43.75</td>
-<td style="text-align: right;">44.5</td>
-<td style="text-align: left;">▇▁▁▇▇</td>
+<td style="text-align: right;">42.7</td>
+<td style="text-align: right;">3.39</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">40.12</td>
+<td style="text-align: right;">42.75</td>
+<td style="text-align: right;">45.0</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: left;">▆▃▁▇▂</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">bb</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">0.33</td>
-<td style="text-align: right;">0.58</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.52</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
 <td style="text-align: right;">1.0</td>
-<td style="text-align: left;">▇▁▁▁▃</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">▇▁▁▁▅</td>
 </tr>
 </tbody>
 </table>
@@ -2812,16 +2812,16 @@ Call:
 lm(formula = height ~ 1, data = data)
 
 Residuals:
-      1       2       3 
-  6.333   4.333 -10.667 
+   Min     1Q Median     3Q    Max 
+ -17.5   -9.0   -2.5    6.0   30.5 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  180.667      5.364   33.68  0.00088 ***
+(Intercept)  182.500      4.512   40.45 1.72e-11 ***
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
-Residual standard error: 9.292 on 2 degrees of freedom</code></pre>
+Residual standard error: 14.27 on 9 degrees of freedom</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(height <span class="sc">~</span> foot,</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">data =</span> data) <span class="sc">|&gt;</span> </span>
@@ -2832,17 +2832,19 @@ Call:
 lm(formula = height ~ foot, data = data)
 
 Residuals:
-      1       2       3 
--1.1959  1.6443 -0.4485 
+   Min     1Q Median     3Q    Max 
+-9.136 -3.270 -1.014  3.480 10.599 
 
 Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)
-(Intercept)  44.6031    21.8682   2.040    0.290
-foot          3.2268     0.5178   6.231    0.101
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  22.1689    28.6834   0.773 0.461814    
+foot          3.7548     0.6698   5.606 0.000507 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
-Residual standard error: 2.082 on 1 degrees of freedom
-Multiple R-squared:  0.9749,    Adjusted R-squared:  0.9498 
-F-statistic: 38.83 on 1 and 1 DF,  p-value: 0.1013</code></pre>
+Residual standard error: 6.818 on 8 degrees of freedom
+Multiple R-squared:  0.7971,    Adjusted R-squared:  0.7717 
+F-statistic: 31.42 on 1 and 8 DF,  p-value: 0.000507</code></pre>
 </div>
 </div>
 </section>
@@ -2854,30 +2856,59 @@ F-statistic: 38.83 on 1 and 1 DF,  p-value: 0.1013</code></pre>
 <blockquote class="blockquote">
 <p>“Probabilistic Notation:” <span class="math display">\[Y \sim \operatorname{Bernoulli}(p)\]</span> <span class="math display">\[logit(p) = b_0 + b_1 \cdot X \text{ bzw.}\]</span> <span class="math display">\[p = \operatorname{logit}^{-1}(b_0 + b_1 \cdot X)\]</span></p>
 </blockquote>
-<div class="cell" data-hash="betareg-from-scratch_cache/html/unnamed-chunk-2_cd7ed0e9a0aee4bd8385d38ec96c079b">
+<div class="cell" data-hash="betareg-from-scratch_cache/html/unnamed-chunk-2_b42373f26ce60cdf395c048d6408c9fc">
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
 glm(formula = bb ~ 1, family = binomial(link = &quot;logit&quot;), data = data)
 
 Deviance Residuals: 
-      1        2        3  
- 1.4823  -0.9005  -0.9005  
+   Min      1Q  Median      3Q     Max  
+-1.011  -1.011  -1.011   1.354   1.354  
 
 Coefficients:
             Estimate Std. Error z value Pr(&gt;|z|)
-(Intercept)  -0.6931     1.2247  -0.566    0.571
+(Intercept)  -0.4055     0.6455  -0.628     0.53
 
 (Dispersion parameter for binomial family taken to be 1)
 
-    Null deviance: 3.8191  on 2  degrees of freedom
-Residual deviance: 3.8191  on 2  degrees of freedom
-AIC: 5.8191
+    Null deviance: 13.46  on 9  degrees of freedom
+Residual deviance: 13.46  on 9  degrees of freedom
+AIC: 15.46
 
 Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.3333438</code></pre>
+<pre><code>[1] 0.1667275</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: glm.fit: algorithm did not converge</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = bb ~ 1 + height, family = binomial(link = &quot;logit&quot;), 
+    data = data)
+
+Deviance Residuals: 
+       Min          1Q      Median          3Q         Max  
+-1.985e-05  -2.110e-08  -2.110e-08   2.110e-08   1.897e-05  
+
+Coefficients:
+              Estimate Std. Error z value Pr(&gt;|z|)
+(Intercept) -1.653e+03  2.306e+06  -0.001    0.999
+height       8.957e+00  1.251e+04   0.001    0.999
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1.3460e+01  on 9  degrees of freedom
+Residual deviance: 7.5405e-10  on 8  degrees of freedom
+AIC: 4
+
+Number of Fisher Scoring iterations: 25</code></pre>
 </div>
 </div>
 </section>
@@ -3181,7 +3212,7 @@ Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling)
 Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
 Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
 Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-Chain 4 finished in 0.1 seconds.
+Chain 4 finished in 0.2 seconds.
 
 All 4 chains finished successfully.
 Mean chain execution time: 0.1 seconds.
@@ -3198,8 +3229,8 @@ Formula: A ~ 1
 
 Population-Level Effects: 
               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-Intercept        -1.70      0.07    -1.84    -1.55 1.00     2063     2363
-phi_Intercept     2.55      0.14     2.27     2.82 1.00     2228     2377
+Intercept        -1.70      0.07    -1.84    -1.56 1.00     1965     2358
+phi_Intercept     2.55      0.14     2.27     2.81 1.00     1956     2494
 
 Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential

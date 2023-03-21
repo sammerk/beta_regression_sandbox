@@ -35,9 +35,9 @@ library(extraDistr)
 
 data <- 
   tibble(
-    height = c(175,168,182,187,178,173),
-    foot = c(40,41,45, 44.5,40.5,38),
-    bb = c(0,0,0,1,0,0)
+    height = c(175,168,182,187,178,173,213,195,189, 165),
+    foot = c(40,41,45, 44.5,40.5,38,48,46,45, 39),
+    bb = c(0,0,0,1,0,0,1,1,1, 0)
   )
 
 skim(data)
@@ -49,7 +49,6 @@ lm(height ~ 1,
 lm(height ~ foot,
    data = data) |> 
   summary()
-  
 ```
 
 #### Logistic Regression
@@ -73,7 +72,13 @@ glm(bb ~ 1,
 logit <- qlogis 
 invlogit <- plogis
 
-invlogit(-0.6931)
+invlogit(-1.609)
+
+
+glm(bb ~ 1 + height,
+    data = data,
+    family = binomial(link = "logit")) |>
+  summary()
 ```
 
 ## Beta Distribution
@@ -169,7 +174,8 @@ data_dummy01 <-
   tibble(A = distribution_beta(100, 2, 11),
          B = distribution_beta(100, 6, 4),
          C = distribution_beta(100, 60, 40),
-         D = distribution_beta(100, 9, 1))
+         D = distribution_beta(100, 9, 1),
+         AA = abs(A + rnorm(100,0,.1)))
 
 # descriptives
 skim(data_dummy01)
@@ -186,6 +192,28 @@ mod_fitA <-
 
 # get parameters
 mod_fitA
+
+# Phi
+exp(2.55)
+
+# mu
+plogis(-1.7)
+
+hist(data_dummy01$A)
+```
+
+```{r}
+ggplot(data_dummy01, aes(A, AA)) +
+  geom_jitter()
+
+mod_AA <- 
+  brm(bf(AA ~ A,
+       phi ~ A),
+    data = data_dummy01,
+    family = Beta(),
+    init = "0")
+
+marginal_effects(mod_AA)
 ```
 
 
