@@ -1,0 +1,17 @@
+shiny
+tidyverse
+ggplot2
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+forcats
+lubridate
+Rcpp
+brms
+bayestestR
+skimr
+ggthemes
+extraDistr

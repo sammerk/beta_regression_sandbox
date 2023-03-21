@@ -1,0 +1,258 @@
+---
+title: "Beta Regression a la Andrew Heiss"
+format: 
+  html:
+    embed-resources: true
+    theme: solar
+    fontsize: .8em
+    toc: true
+    toc-location: left
+    toc-depth: 4
+server: shiny  
+---
+
+## Prelude beyond Andrew Heiss
+### "Distributional Regression"
+#### Simple Linear Regression with one Predictor
+> "Descriptive Notation:" 
+$$y_i = b_0 + b_1 \cdot x_i + \epsilon_i$$
+
+> "Probabilistic Notation:" 
+$$Y \sim \mathcal{N}(\mu,\,\sigma^{2})$$
+$$\mu = b_0 + b_1 \cdot X$$
+
+
+```{r}
+#| label: foot and height
+#| message: false
+#| echo: true
+library(tidyverse)
+library(brms)
+library(bayestestR)
+library(skimr)
+library(ggthemes)
+library(extraDistr) 
+
+data <- 
+  tibble(
+    height = c(187, 185, 170),
+    foot = c(44.5, 43, 39),
+    bb = c(1, 0, 0)
+  )
+
+skim(data)
+
+lm(height ~ 1, 
+   data = data) |> 
+  summary()
+
+lm(height ~ foot,
+   data = data) |> 
+  summary()
+  
+```
+
+#### Logistic Regression
+> "Descriptive Notation:" 
+$$y_i = \frac{e^{(b_0 + b1 \cdot x_i)}}{1+e^{(b_0 + b1 \cdot x_i)}} + \epsilon_i$$
+
+> "Probabilistic Notation:" 
+$$Y \sim \operatorname{Bernoulli}(p)$$
+$$logit(p) = b_0 + b_1 \cdot X \text{ bzw.}$$
+$$p = \operatorname{logit}^{-1}(b_0 + b_1 \cdot X)$$
+
+```{r}
+#| cache: true
+#| message: false
+
+glm(bb ~ 1,
+    data = data,
+    family = binomial(link = "logit")) |>
+  summary()
+
+logit <- qlogis 
+invlogit <- plogis
+
+invlogit(-0.6931)
+```
+
+## Beta Distribution
+
+### PDF
+
+$$\frac{x^{\alpha-1}(1-x)^{\beta-1}}{\mathrm{~B}(\alpha, \beta)}$$
+
+### Conversion of Parametrizations
+
+-   Shape 1: $\quad a=\mu \phi \quad$
+-   Shape 2: $\quad b=(1-\mu) \phi \quad$
+-   Mean: $\quad \mu=\frac{a}{a+b}$
+-   Precision: $\quad \phi=a+b$\$
+
+```{r}
+shapes_to_muphi <- function(shape1, shape2) {
+  mu <- shape1 / (shape1 + shape2)
+  phi <- shape1 + shape2
+  return(list(mu = mu, phi = phi))
+}
+
+muphi_to_shapes <- function(mu, phi) {
+  shape1 <- mu * phi
+  shape2 <- (1 - mu) * phi
+  return(list(shape1 = shape1, shape2 = shape2))
+}
+```
+
+
+### Interactive Overview
+
+```{r}
+h4("Dichte 1 (lila)")
+numericInput("shape1", "a", 1, 0, 1000, 1)
+numericInput("shape2", "b", 1, 0, 1000, 1)
+h4("Dichte 2 (orange)")
+numericInput("mu", "mu", .5, 0.00001, .999999, .02)
+numericInput("phi", "phi", 8, 0, 100, 1)
+plotOutput("distPlot")
+```
+
+
+```{r}
+#| context: server
+library(tidyverse)
+library(extraDistr)
+library(ggthemes)
+output$distPlot <- renderPlot({
+ ggplot(data = tibble(x = 0:1), aes(x = x)) +
+  stat_function(fun = dprop, size = 1,
+                args = list(size = input$phi, 
+                            mean = input$mu),
+                color = "orange") +
+  stat_function(fun = dbeta,
+                args = list(shape1 = input$shape1, 
+                            shape2 = input$shape2),
+                color = "purple") +
+  theme_solarized(light = F)
+})
+```
+
+
+### Calculation of $\sigma^2$
+
+$$\sigma^2=\frac{a \cdot b}{(a+b)^2(a+b+1)}$$
+
+```{r}
+shapes_to_sd <-  function(shape1, shape2) {
+  var <- (shape1 * shape2) / ((shape1 + shape2) ^ 2 * (shape1 + shape2 + 1))
+  return(list(sd = var^2))
+}
+
+muphi_to_sd <-  function(mu, phi) {
+  shape1 <- mu * phi
+  shape2 <- (1 - mu) * phi
+  var <- (shape1 * shape2) / ((shape1 + shape2) ^ 2 * (shape1 + shape2 + 1))
+  return(list(sd = var^2))
+}
+```
+
+## Beta Regression
+> "Probabilistic Notation:" 
+$$Y \sim beta(\mu,\,\phi)$$
+$$logit(\mu) = b_0 + b_1 \cdot X$$
+$$log(\phi) = c_0 + c_1 \cdot Z$$
+
+### Beta Regression with dummy data
+#### Interpreting Coefficients of beta Distribution
+```{r}
+#create dummy data (near perfectly distributed - not sampled)
+data_dummy01 <- 
+  tibble(A = distribution_beta(100, 2, 11),
+         B = distribution_beta(100, 6, 4),
+         C = distribution_beta(100, 60, 40),
+         D = distribution_beta(100, 9, 1))
+
+# descriptives
+skim(data_dummy01)
+
+# fit intercept only model
+mod_fitA <- 
+  brm(
+    bf(A ~ 1,
+       phi ~ 1),
+    family = Beta(),
+    data = data_dummy01,
+    backend = "cmdstanr",
+    init = "0")
+
+# get parameters
+mod_fitA
+```
+
+
+```{r}
+#| fig-format: svg
+
+# plot model
+ggplot(data = tibble(x = 0:1), aes(x = x)) +
+  stat_function(fun = dprop, size = 1,
+                args = list(size = exp(2.55), 
+                            mean = plogis(-1.7)),
+                color = "#8cd000") +
+  geom_density(data = data_dummy01, aes(A), fill = "#8cd00050", color = NA) +
+  theme_solarized(light = F)
+
+# check setted simulation parameters
+muphi_to_shapes(plogis(-1.7), exp(2.55))
+
+# check sd
+shapes_to_sd(1.978, 10.82)
+
+# check sd
+muphi_to_sd(plogis(-1.7), exp(2.55))
+```
+
+
+## Zero-One Inflated Beta Regression
+
+> Distributional Notation
+$$f\left(y_i \mid \alpha, \gamma, \mu, \phi\right)=\left\{\begin{array}{ll}\alpha(1 - \gamma) & \text { if } y_i=0 \\
+\alpha \gamma & \text { if } y_i=1 \\
+(1-\alpha) \operatorname{Beta}(\mu, \phi) & \text { if } y_i \in(0,1)
+\end{array}\right\}$$
+$$logit(\alpha) = b_0 + b_1 \cdot X$$
+$$logit(\mu) = c_0 + c_1 \cdot Z$$
+$$log(\phi) = c_0 + c_1 \cdot K$$
+$$logit(\gamma) = d_0 + d_1 \cdot L$$
+$$\text{mit}$$
+$$P(Y=1)=\alpha \gamma$$
+$$P(Y=0)=\alpha(1 - \gamma)$$
+
+```{r}
+#| cache: true
+#create dummy data 
+data_dummy02 <- 
+  tibble(A = c(distribution_beta(50, 2, 11),
+               rep(1, 20),
+               rep(0, 30)))
+
+mod_fitA_zoi <- 
+  brm(
+    bf(A ~ 1,
+       phi ~ 1,
+       zoi ~ 1,
+       coi ~ 1),
+    family = zero_one_inflated_beta(),
+    data = data_dummy02,
+    backend = "cmdstanr",
+    init = "0")
+
+# get parameters
+mod_fitA_zoi
+
+# probability of zero
+plogis(0)*(1 - plogis(-.4))
+
+# probability of one
+plogis(0)*plogis(-.4)
+```
+
