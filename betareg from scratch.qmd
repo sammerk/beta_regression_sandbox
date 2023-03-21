@@ -35,9 +35,9 @@ library(extraDistr)
 
 data <- 
   tibble(
-    height = c(187, 185, 170),
-    foot = c(44.5, 43, 39),
-    bb = c(1, 0, 0)
+    height = c(175,168,182,187,178,173),
+    foot = c(40,41,45, 44.5,40.5,38),
+    bb = c(0,0,0,1,0,0)
   )
 
 skim(data)
